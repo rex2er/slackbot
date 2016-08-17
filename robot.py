@@ -33,13 +33,6 @@ class Robot(object):
         return True
 
     def _extract(self, message):
-        """
-        [{u'text': u'test', u'ts': u'1471411647.000002', u'user': u'U02J4DEB1', u'team': u'T02C0L8J1', u'type': u'message', u'channel': u'D0F71F030'}]
-        [{u'type': u'user_typing', u'user': u'U02J4DEB1', u'channel': u'C02QG81HM'}]
-        [{u'type': u'user_typing', u'user': u'U02J4DEB1', u'channel': u'C02QG81HM'}]
-        [{u'type': u'user_typing', u'user': u'U02J4DEB1', u'channel': u'C02QG81HM'}]
-        [{u'text': u'.', u'ts': u'1471411660.000599', u'user': u'U02J4DEB1', u'team': u'T02C0L8J1', u'type': u'message', u'channel': u'C02QG81HM'}]
-        """
         if len(message) != 1:
             return False
 
@@ -97,13 +90,11 @@ class Robot(object):
         while 1:
             message = self._extract(self.client.rtm_read())
             if message:
-                if message['user'] != u"U02J4DEB1":
+                if message['user'] != u"BLIND":
                     continue
 
                 if not self.handle_message(message['channel'], message['user'], message['text']):
                     print "[-] Failed to execute the command:", "\"", message['text'], "from the user", message['user'], "on the channel", message['channel'], "\""
-
-        #self.client.rtm_send_message("dev", "test")
 
 rbt = Robot()
 rbt.run()
